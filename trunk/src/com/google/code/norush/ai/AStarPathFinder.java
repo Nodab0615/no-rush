@@ -66,6 +66,7 @@ public class AStarPathFinder {
                     if (nextAStarState.getGScore() > nextStateGScore) {
                         sortedOpen.remove(nextAStarState);
                         nextAStarState.setGScore(nextStateGScore);
+                        nextAStarState.setPrevState(bestAStarState, move);
                         sortedOpen.add(nextAStarState);
                     }
                 } else {
