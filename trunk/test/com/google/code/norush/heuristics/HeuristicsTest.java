@@ -19,8 +19,9 @@ public class HeuristicsTest {
         AStarPathFinder aStar = new AStarPathFinder(new NullHeuristic());
         for (int i = 0; i < RushHourPuzzles.Puzzles.length; ++i) {
             RushHourBoard board = new RushHourBoard(RushHourPuzzles.Puzzles[i]);
-            assertEquals(RushHourPuzzles.SolutionsLengths[i],
-                aStar.solve(board).size());
+            AStarPathFinder.AStarResult result = aStar.solve(board);
+            assertEquals(RushHourPuzzles.SolutionsLengths[i], result.solution.size());
+            //System.out.println(result.ebf);
         }
     }
     
@@ -29,8 +30,19 @@ public class HeuristicsTest {
         AStarPathFinder aStar = new AStarPathFinder(new BlockingVehiclesHeuristic());
         for (int i = 0; i < RushHourPuzzles.Puzzles.length; ++i) {
             RushHourBoard board = new RushHourBoard(RushHourPuzzles.Puzzles[i]);
-            assertEquals(RushHourPuzzles.SolutionsLengths[i],
-                aStar.solve(board).size());
+            AStarPathFinder.AStarResult result = aStar.solve(board);
+            assertEquals(RushHourPuzzles.SolutionsLengths[i], result.solution.size());
+            //System.out.println(result.ebf);
+        }
+    }
+    
+    @Test
+    public void testOracleHeuristic() {
+        AStarPathFinder aStar = new AStarPathFinder(new OracleHeuristic());
+        for (int i = 0; i < RushHourPuzzles.Puzzles.length; ++i) {
+            RushHourBoard board = new RushHourBoard(RushHourPuzzles.Puzzles[i]);
+            AStarPathFinder.AStarResult result = aStar.solve(board);
+            //System.out.println(result.ebf);
         }
     }
 }

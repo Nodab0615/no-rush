@@ -18,10 +18,48 @@ public class AStarPathFinder {
         this.heuristic = heuristic;
     }
     
-    public List<Move> solve(State state) {
+    /**
+     * The result of running the A-Star path finder: the found solution and
+     * related statistics.
+     */
+    public class AStarResult {
+        /**
+         * Constructor.
+         * @param solution    The list of moves that needs to be applied to the
+         *                    initial state in order to reach a goal state, or
+         *                    null if no solution exists.
+         * @param states      The number of expanded states (a unique state can
+         *                    be be expanded more than once).
+         * @param uniqueStates   The number of unique states traversed (this is
+         *                       the number of times the heuristic function was
+         *                       called).
+         */
+        public AStarResult(List<Move> solution, int states, int uniqueStates) {
+            this.solution = solution;
+            this.states = states;
+            this.uniqueStates = uniqueStates;
+
+            // Calculate effective branching factor (or explicitly set to 0, if
+            // no solution was found or initial state was a goal state).
+            if ((solution != null) && (solution.size() != 0)) {
+                ebf = Math.pow(states, 1.0/solution.size());
+            } else {
+                ebf = 0;
+            }
+        }
+        
+        public final List<Move> solution;
+        public final int states;
+        public final int uniqueStates;
+        
+        /** The effective branching factor. */
+        public final double ebf;
+    }
+    
+    public AStarResult solve(State state) {
         // Final state?
         if (state.isGoal()) {
-            return new ArrayList<Move>();
+            return new AStarResult(new ArrayList<Move>(), 1, 1);
         }
 
         // A-Star open and closed state lists
@@ -30,6 +68,7 @@ public class AStarPathFinder {
         PriorityQueue<AStarState> sortedOpen = new PriorityQueue<AStarState>();
 
         // Add initial state to open list, unless unsolvable for sure
+        int numStates = 1;
         AStarState startState = new AStarState(state);
         startState.setGScore(0);
         int nextStateHScore = heuristic.distanceToGoal(state);
@@ -46,13 +85,15 @@ public class AStarPathFinder {
             AStarState bestAStarState = sortedOpen.poll();
             State bestState = bestAStarState.getState();
             if (bestState.isGoal()) {
-                return reconstructSolution(bestAStarState);
+                return new AStarResult(reconstructSolution(bestAStarState),
+                    numStates, open.size() + closed.size());
             }
             open.remove(bestState);
             closed.add(bestState);
             
             // Best known state failed, expand it
             for (Move move : bestState.getMoves()) {
+                ++numStates;
                 State nextState = bestState.applyMove(move);
                 if (closed.contains(nextState)) {
                     // Ignore already-checked states
@@ -88,7 +129,7 @@ public class AStarPathFinder {
         }
         
         // No possible solutions
-        return null;
+        return new AStarResult(null, numStates, open.size() + closed.size());
     }
  
     /**
