@@ -72,7 +72,7 @@ public class AStarPathFinderTest {
     @Test
     public void testStartStateIsGoal() {
         IntegerState state = new IntegerState(0);
-        List<Move> solution = aStar.solve(state);
+        List<Move> solution = aStar.solve(state).solution;
         assertNotNull(solution);
         assertEquals(0, solution.size());
     }
@@ -80,14 +80,14 @@ public class AStarPathFinderTest {
     @Test
     public void testImpossiblePathFinding() {
         IntegerState state = new IntegerState(9);
-        List<Move> solution = aStar.solve(state);
+        List<Move> solution = aStar.solve(state).solution;
         assertNull(solution);
     }
 
     @Test
     public void testPossiblePathFinding() {
         IntegerState state = new IntegerState(10);
-        List<Move> solution = aStar.solve(state);
+        List<Move> solution = aStar.solve(state).solution;
         assertNotNull(solution);
         assertEquals(5, solution.size());
         for (Move move : solution) {
