@@ -11,7 +11,7 @@ Currently, one of three heuristics is employed:
 Since all three heuristics are [http://en.wikipedia.org/wiki/Consistent_heuristic consistent] (hence also [http://en.wikipedia.org/wiki/Admissible_heuristic admissible]), the algorithm always generates optimal solutions.
 
 == Time Performance ==
-Running on a 2.33GHz CPU, utilizing just one of its two cores, produces the following results (all results are in milliseconds, averaged over 100 trials):
+We use a 2.33GHz CPU, utilizing just one of its two cores, and measure the total to solve all 40 puzzles (all results are in milliseconds, averaged over 100 trials):
 
 || *Null Heuristic* || *Blocking Cars Heuristic* || *Oracle Heuristic* ||
 ||1385||934||43||
