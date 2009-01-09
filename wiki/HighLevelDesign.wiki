@@ -1,7 +1,7 @@
 #summary NoRush! High Level Design
 #labels Phase-Design
 
-*!NoRush!* is written in Java, and consists of four major packages:
+*!NoRush!* is written in Java, and consists of four major packages. Unit Testing is done with the [http://en.wikipedia.org/wiki/JUnit JUnit] framework.
 
 === com.google.code.norush ===
 Implements the basic Rush Hour data structures: a Rush Hour board, vehicle types, etc.
