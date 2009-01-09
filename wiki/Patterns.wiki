@@ -1,3 +1,5 @@
+#summary Rush Hour Patterns
+
 = Rush Hour Patterns =
 A Rush Hour pattern defines a unique board formation in which individual vehicle identities are ignored. That is, a pattern only cares about vehicle types and positions ("Horizontal Car in first row, columns 3-4") and ignores car names ("GREEN Horizontal Car in first row, columns 3-4"). Since vehicle identities have no affect in the game world, a heuristic function can operate on patterns.
 
