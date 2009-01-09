@@ -1,0 +1,17 @@
+#summary NoRush! Performance
+
+= Solving Rush Hour =
+Performance is measured by solving the 40 standard Rush Hour boards using different heuristic functions.
+
+Currently, one of three heuristics is employed:
+  # _Null Heuristic_: returns 0 for all boards, equivalent to running a BFS search.
+  # _Blocking Vehicles Heuristic_: returns the number of occupied squares to the right of the Red Car (i.e. the number of vehicles blocking the Red Car's exit route).
+  # _Oracle Heuristic_: returns the real minimal distance to a solution. This is the best possible heuristic, which simulates how the game would be solved given a complete pre-calculated pattern database. The implementation internally solves the board using A`*` and one of the previous heuristics, saves the results in a hash table and reuses them for subsequent queries. We use this to get lower bounds for performance.
+
+Since all three heuristics are [http://en.wikipedia.org/wiki/Consistent_heuristic consistent] (hence also [http://en.wikipedia.org/wiki/Admissible_heuristic admissible]), the algorithm always generates optimal solutions.
+
+= Statistics =
+Running on a 2.33GHz CPU, utilizing just one of its two cores, produces the following results (all results are in milliseconds, averaged over 100 trials):
+
+|| *Null Heuristic* || *Blocking Cars Heuristic* || *Oracle Heuristic* ||
+||1385||934||44||
