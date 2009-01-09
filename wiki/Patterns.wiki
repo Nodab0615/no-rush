@@ -1,8 +1,11 @@
 #summary Rush Hour Patterns
 
 = Rush Hour Patterns =
+
+== Definition ==
 A Rush Hour pattern defines a unique board formation in which individual vehicle identities are ignored. That is, a pattern only cares about vehicle types and positions ("Horizontal Car in first row, columns 3-4") and ignores car names ("GREEN Horizontal Car in first row, columns 3-4"). Since vehicle identities have no affect in the game world, a heuristic function can operate on patterns.
 
+== Partitioning ==
 Rush Hour board patterns can be multi-level partitioned:
 
 First, patterns can be partitioned according to the total number of vehicles on the board (excluding the Red Car, which is always present).
@@ -13,6 +16,7 @@ When unique vehicle counts are known, a third level of partitioning can be appli
 
 Finally, given a specific ordering of the 4 vehicle types, one can simply iterate all legal Rush Hour patterns that match it.
 
+== Statistics ==
 *!NoRush!* provides Java iterators for each level above. The following partial table is based on running them on a 2.33GHz CPU (utilizing just one of its two cores):
 
 || *Total Vehicles* || *Vehicle Counts* || *Vehicle Orders* || *Patterns* || *Orders Iteration (ms)* || *Patterns Iteration (ms)* ||
