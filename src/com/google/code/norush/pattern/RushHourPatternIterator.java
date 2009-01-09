@@ -141,13 +141,18 @@ public class RushHourPatternIterator implements Iterator<RushHourPattern> {
             if (carIndex == 0) {
                 carPosIndex = 0;
             } else {
-                int prevCarPos =
-                    carLegalPositions[carIndex-1][carLegalPositionsIndices[carIndex-1]];
                 
-                carPosIndex = Arrays.binarySearch(
-                    carLegalPositions[carIndex], prevCarPos+1);
-                if (carPosIndex < 0) {
-                    carPosIndex = -1 - carPosIndex;
+                if (carLegalPositions[carIndex] == carLegalPositions[carIndex-1]) {
+                    carPosIndex = carLegalPositionsIndices[carIndex-1] + 1;
+                } else {
+                    int prevCarPos =
+                        carLegalPositions[carIndex-1][carLegalPositionsIndices[carIndex-1]];
+                    
+                    carPosIndex = Arrays.binarySearch(
+                        carLegalPositions[carIndex], prevCarPos+1);
+                    if (carPosIndex < 0) {
+                        carPosIndex = -1 - carPosIndex;
+                    }
                 }
             }
         } else {
