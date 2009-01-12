@@ -3,5 +3,7 @@
 = Rush Hour Pattern Database =
 
 == Definition ==
-A Rush Hour pattern database, is a database that holds, for each solvable pattern,
-the minimal distance between itself and a solution.
+A Rush Hour pattern database, is a database that holds, for each legal pattern,
+the minimal distance between itself and a solution, or -1 if it is not a solvable pattern.
+
+== Creation
