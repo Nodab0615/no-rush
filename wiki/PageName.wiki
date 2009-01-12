@@ -1,0 +1,7 @@
+#summary Rush Hour Pattern Database
+
+= Rush Hour Pattern Database =
+
+== Definition ==
+A Rush Hour pattern database, is a database that holds, for each solvable pattern,
+the minimal distance between itself and a solution.
