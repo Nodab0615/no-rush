@@ -6,4 +6,7 @@
 A Rush Hour pattern database, is a database that holds, for each legal pattern,
 the minimal distance between itself and a solution, or -1 if it is not a solvable pattern.
 
-== Creation
+== Generation==
+The Rush Hour pattern database is created through solving the rush hour problem for each
+legal board, using several optimizations.
+# _progressive generation_: As explained in the [http://code.google.com/p/no-rush/wiki/Patterns Patterns] section, The rush hour patterns may be initially partitioned according to the amount of vehicles in the pattern, excluding the Red Car.
