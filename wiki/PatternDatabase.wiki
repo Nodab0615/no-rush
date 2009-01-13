@@ -8,20 +8,19 @@ the minimal distance between itself and a solution, or a -1 if it is not a solva
 The patterns are indexed according to a certain encoding, to be specified later.
 The database entries consist of the distance value, indexed in the database by offset according the pattern's encoding. This distance has been shown to be about 93 in the worst case, so we represent this using one Byte.
 
-== Generation==
+== Generation ==
 There are a couple of ways to fill the entries in the database:
   # _solve the rush hour problem for each legal pattern_: Iterate over total possible number of cars in a pattern, and solve for all legal patterns with such number of cars. This means, that when solving the rush hour problem for any pattern with i cars, you already have a complete database on patterns with (i-1) cars. Given a specific pattern state, consider the heuristic of taking the maximum, over the database entries of patterns achieved from it by removing a single car. This heuristic is [http://en.wikipedia.org/wiki/Consistent_heuristic consistent], rather accurate and fast to calculate, allowing to find a solution for any specific pattern with i cars in a very short time. Notice, that when solving the rush hour problem for a specific pattern, we find a path from itself to an optimal solution. This supplies us with the database entry values for every pattern appearing on this path.
   # _find all shortest paths, one connected component at a time_: Iterate, using the supplied iterators, over all possible legal patterns, and for each unsolved pattern (empty entry in database), generate with BFS (A* with _null heuristic_) the entire connected component. While generating this connected component, save a list of all wining states. Initialize a BFS search, starting with the winning states in the opened list, and distance zero. Fill the database with the BFS distance values.
 
 
-== Pattern Encoding==
+== Pattern Encoding ==
 There are several ways to encode a pattern:
   # _save an index for each pattern_:  The encoding of a specific pattern, will save for each car, in ascending order as described in the [http://code.google.com/p/no-rush/wiki/Patterns Patterns] section, the car type and location on the board. This can be done in one Byte per car, or 15 Bytes per pattern. A query to the database for a specific pattern consists of calculating this number, and performing a Binary search on the database to reach the desired entry.
   # _offset by Zobrist key_:  Since the patterns may be partitioned neatly, we may hold a database file for each partitioned set of patterns. For each such set, we may generate a Zobrist key of length comparable to _log(<set size>)_, repeating until a seed is found for which the generated Zobrist keys provide no collision. Both of these iterations can be done with the supplied iterators. This results in a fast-to-calculate perfect hash for each such set of patterns, into a continuous index set of comparable size. This allows to to forgo saving the index value for each database entry, as each entry can be accessed by the offset dictated by it's encoding. The price we pay is certain amount of empty entries we will have to hold.
   # _offset by random projection encoding_: The method presented above may be applied to any method of randomly generating a fast-to-calculate hash on all possible patterns (including non-legal), that has a chance to be collision free on a sub-set of patterns (the legal patterns), and is into a continuous index set of size comparable to that of the sub-set. One such method is [http://en.wikipedia.org/wiki/Johnson-Lindenstrauss_lemma Random Projection], which has a relatively low expectancy of collisions.
 
-
-We note that the database may be compressed. Certain facts, such as that the first bit of every entry is always zero (the distance from solution is always smaller than 128) lead us to believing the compression factor will be high.
-
-
 It is worth noting, that the main problem faced here is that of encoding the set of legal patterns into a continuous index set of comparable size. Certain elements from Coding Theory and Combinatorics, such as [http://en.wikipedia.org/wiki/Error_correcting_code Error Correcting Codes] or processes involved in creating k-wise independent random variables (some examples given [http://www.cs.tau.ac.il/courses/combsem/09a/ppt/SimpleConstructions.ppt here]), may be explored to yield a solution to this issue.
+
+== Notes ==
+We note that the database may be compressed. Certain facts, such as that the first bit of every entry is always zero (the distance from solution is always smaller than 128) lead us to believing the compression factor will be high.
