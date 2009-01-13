@@ -23,4 +23,4 @@ There are several ways to encode a pattern:
 It is worth noting, that the main problem faced here is that of encoding the set of legal patterns into a continuous index set of comparable size. Certain elements from Coding Theory and Combinatorics, such as [http://en.wikipedia.org/wiki/Error_correcting_code Error Correcting Codes] or processes involved in creating k-wise independent random variables (some examples given [http://www.cs.tau.ac.il/courses/combsem/09a/ppt/SimpleConstructions.ppt here]), may be explored to yield a solution to this issue.
 
 == Notes ==
-We note that the database may be compressed. Certain facts, such as that the first bit of every entry is always zero (the distance from solution is always smaller than 128) lead us to believing the compression factor will be high.
+We note that the database may be compressed. Certain facts, such as that the first bit of every entry is always zero (the distance from solution is always less than 128) lead us to believing the compression factor will be high.
