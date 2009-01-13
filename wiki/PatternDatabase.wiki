@@ -9,13 +9,14 @@ The patterns are indexed according to a certain encoding, to be specified later.
 The database entries consist of the distance value, indexed in the database by offset according the pattern's encoding.
 
 == Generation==
+There are A couple of ways to fill the entries in the database:
+
 The Rush Hour pattern database is created through solving the rush hour problem for each
 legal pattern, using several optimizations:
-
-# _progressive generation_: As explained in the [http://code.google.com/p/no-rush/wiki/Patterns Patterns] section, The rush hour patterns may be initially partitioned according to the amount of vehicles in the pattern, excluding the Red Car.
+  # _progressive generation by cars number_: As explained in the [http://code.google.com/p/no-rush/wiki/Patterns Patterns] section, The rush hour patterns may be initially partitioned according to the amount of vehicles in the pattern, excluding the Red Car.
 This allows for filling the database entries progressively by the number of cards in the pattern. This means, that when solving the rush hour problem for a certain pattern with i cars, you already have a complete database on pattern with (i-1) cars.
 This can easily be used to supply a [http://en.wikipedia.org/wiki/Consistent_heuristic consistent] heuristic, which is both rather accurate and fast to calculate, allowing to find a solution for a specific pattern with i cars in a very short time.
-# _progressive generation_: While solving the rush hour problem for a specific pattern, we find a path from itself to an optimal solution. This supplies us with the database entry values for every pattern appearing on this path.
+  # _progressive generation_: While solving the rush hour problem for a specific pattern, we find a path from itself to an optimal solution. This supplies us with the database entry values for every pattern appearing on this path.
 
 
 == Pattern Encoding==
